@@ -97,14 +97,20 @@ var kyc_check = function (date_of_birth, firstname, lastname, licence_number, st
                 };
                 return [4 /*yield*/, fetch(url, {
                         method: 'POST',
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        credentials: 'include',
                         headers: {
                             'token': api_key,
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify(body_data) // body data type must match "Content-Type" header
+                        body: JSON.stringify(body_data)
                     })
                         .then(function (response) {
                         console.log(response);
+                        if (!response.ok) {
+                            throw new VerifyDocumentError("D", "Document Error");
+                        }
                         response.json();
                         return response;
                     })["catch"](function (error) {

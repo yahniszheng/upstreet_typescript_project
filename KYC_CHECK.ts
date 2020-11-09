@@ -48,6 +48,9 @@ const kyc_check = async (date_of_birth: string, firstname: string, lastname: str
         }  
     const response = await fetch(url, {
         method: 'POST', 
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'include', // include, *same-origin, omit
         headers: {
             'token': api_key,
             'Content-Type': 'application/json'
@@ -56,6 +59,9 @@ const kyc_check = async (date_of_birth: string, firstname: string, lastname: str
     })
         .then(response => {
             console.log(response);
+            if (!response.ok) {
+                throw new VerifyDocumentError("D", "Document Error");
+            }
             response.json();
             return response;
         })
