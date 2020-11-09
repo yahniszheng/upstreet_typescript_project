@@ -1,0 +1,1 @@
+# upstreet_typescript_project
