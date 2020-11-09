@@ -1,5 +1,6 @@
 type State = "NSW" | "QLD" | "SA" | "TAS" | "VIC" | "WA" | "ACT" | "NT";
 
+import fetch = require("node-fetch");
 
 interface KYC_Result {
     kycResult: boolean;
@@ -45,16 +46,19 @@ const kyc_check = async (date_of_birth: string, firstname: string, lastname: str
         "stateOfIssue" : state,
         "expiryDate" : expiry_date ? expiry_date : ""
         }  
-
     const response = await fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        method: 'POST', 
         headers: {
-        'Content-Type': 'application/json',
-        'token': api_key
+            'token': api_key,
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(body_data) // body data type must match "Content-Type" header
+        body: JSON.stringify(body_data) 
     })
-        .then(response => response.json())
+        .then(response => {
+            console.log(response);
+            response.json();
+            return response;
+        })
         .catch(error => {
             throw new Error(error);
           });;              
@@ -68,3 +72,6 @@ const kyc_check = async (date_of_birth: string, firstname: string, lastname: str
     }
     return {kycResult: false};
 }
+
+
+export { kyc_check as kyc_check };
