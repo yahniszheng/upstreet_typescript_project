@@ -101,26 +101,23 @@ var kyc_check = function (date_of_birth, firstname, lastname, licence_number, st
                         cache: 'no-cache',
                         credentials: 'include',
                         headers: {
-                            'token': api_key,
+                            "Authorization": "Bearer " + api_key,
                             "Accept": "application/json",
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(body_data)
-                    })
-                        .then(function (response) {
-                        console.log(response);
-                        if (!response.ok) {
-                            throw new VerifyDocumentError("D", "Document Error");
-                        }
-                        response.json();
-                        return response;
                     })["catch"](function (error) {
                         throw new Error(error);
                     })];
             case 1:
                 response = _a.sent();
-                ;
-                if (response["verificationResultCode"] == "D") {
+                if (!response.ok) {
+                    throw new VerifyDocumentError("D", "Document Error");
+                }
+                return [4 /*yield*/, response.json()];
+            case 2:
+                response = _a.sent();
+                if (!response["verificationResultCode"] || response["verificationResultCode"] == "D") {
                     throw new VerifyDocumentError("D", "Document Error");
                 }
                 else if (response["verificationResultCode"] == "S") {

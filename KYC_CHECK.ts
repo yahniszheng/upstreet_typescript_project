@@ -33,7 +33,6 @@ const kyc_check = async (date_of_birth: string, firstname: string, lastname: str
             throw new DateFormatError("expiry_date is in wrong format");
         }
     }
-
     const url = "https://australia-southeast1-reporting-290bc.cloudfunctions.net/driverlicence";
     const api_key = "03aa7ba718da920e0ea362c876505c6df32197940669c5b150711b03650a78cf"; // Note: these should be kept in a more secret place
                                                                                         // may be in environment variable or in backend server.
@@ -46,30 +45,26 @@ const kyc_check = async (date_of_birth: string, firstname: string, lastname: str
         "stateOfIssue" : state,
         "expiryDate" : expiry_date ? expiry_date : ""
         }  
-    const response = await fetch(url, {
+    let response = await fetch(url, {
         method: 'POST', 
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         credentials: 'include', // include, *same-origin, omit
         headers: {
-            'token': api_key,
+            "Authorization": "Bearer " + api_key,
             "Accept": "application/json",
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(body_data) 
     })
-        .then(response => {
-            console.log(response);
-            if (!response.ok) {
-                throw new VerifyDocumentError("D", "Document Error");
-            }
-            response.json();
-            return response;
-        })
         .catch(error => {
             throw new Error(error);
-          });;              
-    if (response["verificationResultCode"] == "D") {
+          });
+    if (!response.ok) {
+        throw new VerifyDocumentError("D", "Document Error");
+    }     
+    response = await response.json();     
+    if (!response["verificationResultCode"] || response["verificationResultCode"] == "D") {
         throw new VerifyDocumentError("D", "Document Error");
     } else if (response["verificationResultCode"] == "S") {
         throw new VerifyDocumentError("S", "Server Error");
