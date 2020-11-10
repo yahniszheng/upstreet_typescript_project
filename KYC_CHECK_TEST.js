@@ -39,16 +39,96 @@ exports.__esModule = true;
 var KYC_CHECK_1 = require("./KYC_CHECK");
 // const kyc_check = async (date_of_birth: string, firstname: string, lastname: string, licence_number: string,
 //     state: State, middlename?: string, expiry_date?: string) 
-var test1 = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var res;
+// jest framework not working locally.
+var test_valid_input = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var res, res1, res2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, KYC_CHECK_1.kyc_check("1985-12-12", "aaa", "aaa", "aaa", "NSW")];
             case 1:
                 res = _a.sent();
-                console.log(res["kycResult"]);
+                if (res["kycResult"] === true || res["kycResult"] === false) {
+                    console.log("test_valid_input 1 passed");
+                }
+                else {
+                    console.log("test_valid_input 1 failed");
+                }
+                return [4 /*yield*/, KYC_CHECK_1.kyc_check("1985-12-12", "aaa", "aaa", "aaa", "NSW", undefined, "aaa")];
+            case 2:
+                res1 = _a.sent();
+                if (res1["kycResult"] === true || res1["kycResult"] === false) {
+                    console.log("test_valid_input 2 passed");
+                }
+                else {
+                    console.log("test_valid_input 2 failed");
+                }
+                return [4 /*yield*/, KYC_CHECK_1.kyc_check("1985-12-12", "aaa", "aaa", "aaa", "NSW", "yyy", "aaa")];
+            case 3:
+                res2 = _a.sent();
+                if (res2["kycResult"] === true || res2["kycResult"] === false) {
+                    console.log("test_valid_input 2 passed");
+                }
+                else {
+                    console.log("test_valid_input 2 failed");
+                }
                 return [2 /*return*/];
         }
     });
 }); };
-test1();
+var test_invalid_date = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var res, error_1, res, error_2, res, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, KYC_CHECK_1.kyc_check("19851212", "aaa", "aaa", "aaa", "NSW")];
+            case 1:
+                res = _a.sent();
+                console.log("test_invalid_date 1 failed");
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                if (error_1.name == "DateFormatError" && error_1.message == "date_of_birth is in wrong format") {
+                    console.log("test_invalid_date 1 passed");
+                }
+                else {
+                    console.log("test_invalid_date 1 failed");
+                }
+                return [3 /*break*/, 3];
+            case 3:
+                _a.trys.push([3, 5, , 6]);
+                return [4 /*yield*/, KYC_CHECK_1.kyc_check("1985-aa-12", "aaa", "aaa", "aaa", "NSW")];
+            case 4:
+                res = _a.sent();
+                console.log("test_invalid_date 2 failed");
+                return [3 /*break*/, 6];
+            case 5:
+                error_2 = _a.sent();
+                if (error_2.name == "DateFormatError" && error_2.message == "date_of_birth is in wrong format") {
+                    console.log("test_invalid_date 2 passed");
+                }
+                else {
+                    console.log("test_invalid_date 2 failed");
+                }
+                return [3 /*break*/, 6];
+            case 6:
+                _a.trys.push([6, 8, , 9]);
+                return [4 /*yield*/, KYC_CHECK_1.kyc_check("1985-11-12", "aaa", "aaa", "aaa", "NSW", "aaa", "aaa")];
+            case 7:
+                res = _a.sent();
+                console.log("test_invalid_date 3 failed");
+                return [3 /*break*/, 9];
+            case 8:
+                error_3 = _a.sent();
+                if (error_3.name == "DateFormatError" && error_3.message == "expiry_date is in wrong format") {
+                    console.log("test_invalid_date 3 passed");
+                }
+                else {
+                    console.log("test_invalid_date 3 failed");
+                }
+                return [3 /*break*/, 9];
+            case 9: return [2 /*return*/];
+        }
+    });
+}); };
+test_invalid_date();

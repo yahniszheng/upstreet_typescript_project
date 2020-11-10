@@ -102,6 +102,7 @@ var kyc_check = function (date_of_birth, firstname, lastname, licence_number, st
                         credentials: 'include',
                         headers: {
                             'token': api_key,
+                            "Accept": "application/json",
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(body_data)

@@ -53,6 +53,7 @@ const kyc_check = async (date_of_birth: string, firstname: string, lastname: str
         credentials: 'include', // include, *same-origin, omit
         headers: {
             'token': api_key,
+            "Accept": "application/json",
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(body_data) 
