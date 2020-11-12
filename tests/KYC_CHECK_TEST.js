@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var KYC_CHECK_1 = require("./KYC_CHECK");
+var KYC_CHECK_1 = require("../src/KYC_CHECK");
 // jest framework not working locally, so implementing manually, 
 var test_valid_input = function () { return __awaiter(void 0, void 0, void 0, function () {
     var res, error_1, res1, error_2, res2, error_3;

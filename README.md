@@ -13,7 +13,15 @@ third-party provider API.
 run 
 
 ```bash
-node KYC_CHECK_TEST.js
+npx tsc ./tests/KYC_CHECK_TEST.ts
+```
+
+to compile all the test cases.
+
+run 
+
+```bash
+node ./tests/KYC_CHECK_TEST.js
 ```
 
 to run all the test cases.

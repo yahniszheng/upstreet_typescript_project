@@ -1,4 +1,4 @@
-import {kyc_check } from "./KYC_CHECK";
+import {kyc_check } from "../src/KYC_CHECK";
 
 // jest framework not working locally, so implementing manually, 
 

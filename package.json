@@ -1,0 +1,27 @@
+{
+  "name": "upstreet_typescript_project",
+  "version": "1.0.0",
+  "description": "You’re building a financial product for a FinTech company and your company needs to\r perform Know Your Customer (KYC) checks to identify new customers.",
+  "main": "KYC_CHECK.js",
+  "dependencies": {
+    "@types/jest": "^26.0.15",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yahniszheng/upstreet_typescript_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yahniszheng/upstreet_typescript_project/issues"
+  },
+  "homepage": "https://github.com/yahniszheng/upstreet_typescript_project#readme"
+}
